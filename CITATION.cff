@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use BayDelC, please cite the associated article and this software."
+title: "BayDelC: Bayesian proxy system models for bottom-water oxygen"
+type: software
+version: 0.3.0
+date-released: 2026-09-05
+license: MIT
+repository-code: "https://github.com/clairezhang1mol/BayDelC"
+authors:
+  - family-names: Zhang
+    given-names: Xinwen
+    email: zhangxw@stu.pku.edu.cn
+  - family-names: Lu
+    given-names: Wanyi
+  - family-names: Hoogakker
+    given-names: Babette A. A.
+  - family-names: Yao
+    given-names: Weiqi
+  - family-names: Gu
+    given-names: Sifan
+  - family-names: Liu
+    given-names: Jiahao
+  - family-names: Li
+    given-names: Mingsong
+preferred-citation:
+  type: article
+  title: "Reconstructing Past Bottom-Water Oxygen From Benthic Foraminiferal Carbon-Isotope Offsets: The BayDelC Bayesian Framework"
+  authors:
+    - family-names: Zhang
+      given-names: Xinwen
+    - family-names: Lu
+      given-names: Wanyi
+    - family-names: Hoogakker
+      given-names: Babette A. A.
+    - family-names: Yao
+      given-names: Weiqi
+    - family-names: Gu
+      given-names: Sifan
+    - family-names: Liu
+      given-names: Jiahao
+    - family-names: Li
+      given-names: Mingsong
+  notes: "Manuscript in preparation; update journal, year, volume, pages, and DOI after acceptance."

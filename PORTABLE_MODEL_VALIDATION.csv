@@ -1,0 +1,7 @@
+"model","comparison","max_abs_difference","full_repeat_difference","tolerance","passed"
+"BLR_Sub","posterior parameters",0,0,0,TRUE
+"BLR_All","posterior parameters",0,0,0,TRUE
+"GPR_Sub","stored grid points",0.00125536069826326,0.00063804136381318,0.005,TRUE
+"GPR_Sub","half-step interpolation",0.000411266151259193,0.000278542866259945,0.005,TRUE
+"GPR_All","stored grid points",0.0017758979854885,0.00299387542391871,0.00598775084783743,TRUE
+"GPR_All","half-step interpolation",0.000354250126733291,0.000199981604248389,0.005,TRUE

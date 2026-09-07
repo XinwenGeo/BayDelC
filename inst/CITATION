@@ -1,0 +1,15 @@
+citHeader("To cite BayDelC in publications, use:")
+
+bibentry(
+  bibtype = "Article",
+  title = "Reconstructing Past Bottom-Water Oxygen From Benthic Foraminiferal Carbon-Isotope Offsets: The BayDelC Bayesian Framework",
+  author = personList(
+    as.person("Xinwen Zhang"), as.person("Wanyi Lu"),
+    as.person("Babette A. A. Hoogakker"), as.person("Weiqi Yao"),
+    as.person("Sifan Gu"), as.person("Jiahao Liu"),
+    as.person("Mingsong Li")
+  ),
+  journal = "Manuscript in preparation",
+  year = "2026",
+  note = "Bibliographic details will be updated after acceptance."
+)
