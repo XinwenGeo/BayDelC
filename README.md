@@ -1,7 +1,7 @@
 # BayDelC
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/clairezhang1mol/BayDelC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/clairezhang1mol/BayDelC/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/XinwenGeo/BayDelC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/XinwenGeo/BayDelC/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 BayDelC is an R package for forward and inverse proxy-system modelling of
@@ -28,7 +28,7 @@ After the repository is published, users will be able to install it with:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("clairezhang1mol/BayDelC")
+remotes::install_github("XinwenGeo/BayDelC")
 ```
 
 BayDelC requires only base-recommended R packages for normal use. `brms` and

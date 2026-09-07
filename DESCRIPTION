@@ -31,8 +31,8 @@ Suggests:
     patchwork,
     posterior,
     rstan
-URL: https://github.com/clairezhang1mol/BayDelC
-BugReports: https://github.com/clairezhang1mol/BayDelC/issues
+URL: https://github.com/XinwenGeo/BayDelC
+BugReports: https://github.com/XinwenGeo/BayDelC/issues
 Collate:
     'aaa-utils.R'
     'model-registry.R'

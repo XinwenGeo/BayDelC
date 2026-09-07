@@ -5,7 +5,7 @@ type: software
 version: 0.3.0
 date-released: 2026-09-05
 license: MIT
-repository-code: "https://github.com/clairezhang1mol/BayDelC"
+repository-code: "https://github.com/XinwenGeo/BayDelC"
 authors:
   - family-names: Zhang
     given-names: Xinwen
