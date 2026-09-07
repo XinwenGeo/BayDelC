@@ -1,0 +1,109 @@
+Location,Core name,Lat,Lon,O2,O2_sd,Cib Species,Globobulimina species,dd13C,dd13C_sd,type,reference,Group,is_outlier,low_o2,is_foram_only,use_all_calib,use_sub_calib,calibration_decision
+Arabian,GeoB3004,14.6,52.9,82.19,1.12,C.wuellerstorfi,G.affinis,0.96,0.23,epifaunal and deep infaunal benthic foraminifera,"Schmiedl and Mackensen, 2006",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,KNR197-3-24MC,7.59,-53.92,119.73,3.51,C.pachyderma,G.affinis,0.87,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,KNR197-3-2MC,7.66,-53.82,120.55,3.49,C.pachyderma,G.affinis,1.12,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,KNR197-3-26MC,7.72,-53.78,128.92,1.45,C.pachyderma,G.affinis,1.24,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,KNR197-3-28MC,7.84,-53.67,150.18,0.81,C.pachyderma,G.affinis,1.46,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,KNR197-3-17MC,7.44,-52.76,155.4,3.74,C.pachyderma,G.affinis,1.64,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,KNR197-3-10MC,7.94,-53.58,172.58,0.99,C.pachyderma,G.affinis,1.68,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,KNR197-3-33MC,8.25,-53.24,199.2,2.26,C.pachyderma,G.affinis,1.73,0.32,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_pach,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,JC89-11,37.86,-9.34,190.53,5.89,C.mundulus,G.affinis,1.84,0.14,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_mund,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,JC89-10,37.84,-9.51,187.96,1.18,C.mundulus,G.affinis,1.65,0.14,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_mund,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,JC89-13,37.94,-9.59,178.13,32.35,C.mundulus,G.affinis,2.29,0.14,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_mund,FALSE,FALSE,TRUE,TRUE,FALSE,included_all
+Atlantic,JC89-09,37.83,-9.82,194.69,24.12,C.mundulus,G.affinis,3.74,0.14,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_mund,TRUE,FALSE,TRUE,FALSE,FALSE,outlier
+Atlantic,JC89-08,37.78,-10.05,193.31,22.79,C.mundulus,G.affinis,3.25,0.14,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_mund,TRUE,FALSE,TRUE,FALSE,FALSE,outlier
+Atlantic,JC89-06,37.56,-10.14,194.17,21.88,C.mundulus,G.affinis,2.72,0.14,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_mund,TRUE,FALSE,TRUE,FALSE,FALSE,outlier
+Atlantic,GeoB3708,-21.1,11.8,182.36,3.2,C.wuellerstorfi,G.pacifica,1.75,0.23,epifaunal and deep infaunal benthic foraminifera,"Mackensen and Licari, 2004",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,GeoB3706,-22.7,12.6,184.13,3.11,C.wuellerstorfi,G.pacifica,1.79,0.23,epifaunal and deep infaunal benthic foraminifera,"Mackensen and Licari, 2004",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,JC89-13,37.94,-9.59,178.13,32.35,C.wuellerstorfi,G.affinis,2.54,0.23,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,GeoB3606-1,-25.47,13.08,212.93,1.57,C.wuellerstorfi,G.turgida,1.9,0.23,epifaunal and deep infaunal benthic foraminifera,"McKay at al., 2016",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,GeoB3725,-23.3,12.4,223.95,2.77,C.wuellerstorfi,G.pacifica,1.9,0.23,epifaunal and deep infaunal benthic foraminifera,"Mackensen and Licari, 2004",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,KNR197-3-41MC,8.38,-53.05,255.56,0.9,C.wuellerstorfi,G.affinis,2.6,0.23,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,RAPID 11 7B/RAPID,62.3,-17.15,278.86,1.8,C.wuellerstorfi,G.pacifica,3.13,0.23,epifaunal and deep infaunal benthic foraminifera,"Hoogakker et al., 2015",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,JC89-09,37.83,-9.82,194.69,24.12,C.wuellerstorfi,G.affinis,4.21,0.23,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_wuel,TRUE,FALSE,TRUE,FALSE,FALSE,outlier
+Atlantic,KNR197-3-37MC,8.43,-52.79,257.02,0.68,C.wuellerstorfi,G.affinis,2.9,0.23,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Atlantic,JC89-08,37.78,-10.05,193.31,22.79,C.wuellerstorfi,G.affinis,3.78,0.23,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_wuel,TRUE,FALSE,TRUE,FALSE,FALSE,outlier
+Atlantic,JC89-06,37.56,-10.14,194.17,21.88,C.wuellerstorfi,G.affinis,3.28,0.23,epifaunal and deep infaunal benthic foraminifera,"Thomas et al., 2022",C_wuel,TRUE,FALSE,TRUE,FALSE,FALSE,outlier
+Atlantic,KNR197-3-35MC,8.47,-52.79,258.72,0.2,C.wuellerstorfi,G.affinis,2.83,0.23,epifaunal and deep infaunal benthic foraminifera,"Costa et al., 2023",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Indian,TN041-8PG/8JPC,17.8,57.5,8.46,1.99,C.unidentified,G.affinis,0.63,0.51,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2022",C_unid,FALSE,TRUE,TRUE,FALSE,FALSE,O2_below_50
+Pacific,ODP 1242,7.86,-83.61,92.21,5.11,C.wuellerstorfi,mixed,1.08,0.23,epifaunal and deep infaunal benthic foraminifera,"Hoogakker et al., 2015",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,TR163-25,-1.65,-88.45,119.89,2.98,C.wuellerstorfi,G.affinis,1.69,0.23,epifaunal and deep infaunal benthic foraminifera,"Hoogakker et al., 2015",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,TR163-23,0.41,-92.16,120.09,3.66,C.wuellerstorfi,G.affinis,1.78,0.23,epifaunal and deep infaunal benthic foraminifera,"Umling and Thunel, 2018",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,ODP 1240,0.02,-86.46,124.13,1.65,C.wuellerstorfi,G.affinis,2.15,0.23,epifaunal and deep infaunal benthic foraminifera,"Jacobel et al., 2020",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,ODP 846,-3.09,-90.82,137.97,2.31,C.wuellerstorfi,G.affinis,1.61,0.23,epifaunal and deep infaunal benthic foraminifera,"Jacobel et al., 2020",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,KNR195-5-MC-25B,-3.582533,-81.1645,14.85,0.71,C.wuellerstorfi,G.affinis,1.886,0.2,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,TRUE,TRUE,TRUE,FALSE,FALSE,outlier
+Pacific,KNR195-5-MC-42B,-1.253017,-89.68555,41.54,3.59,C.wuellerstorfi,G.affinis,0.980214285714286,0.198063301569401,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,FALSE,TRUE,TRUE,FALSE,FALSE,O2_below_50
+Pacific,KNR195-5-MC-22A,-3.8504,-81.25,40.49,0.64,C.wuellerstorfi,G.affinis,1.07466666666667,0.0711500761302002,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,FALSE,TRUE,TRUE,FALSE,FALSE,O2_below_50
+Pacific,KNR195-5-MC-18B,-3.986617,-81.3099,60.09,2.93,C.wuellerstorfi,G.affinis,0.893,0.264552452266087,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,KNR195-5-MC-4B,-0.216133,-89.504217,76.85,1.07,C.wuellerstorfi,G.affinis,1.25116666666667,0.106092255450936,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,KNR195-5-MC-9B,-0.826,-87.908167,82.51,0.8,C.wuellerstorfi,G.affinis,0.814833333333333,0.10455508914762,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+Pacific,KNR195-5-MC-33B,-3.223583,-82.914167,134,3.6,C.wuellerstorfi,G.affinis,1.1865,0.262607121000173,epifaunal and deep infaunal benthic foraminifera,"Lu et al., 2026",C_wuel,FALSE,FALSE,TRUE,TRUE,TRUE,included_all
+"North
+Atlantic",K-104-10-1,41.5,-64,275,2,NA,NA,4.24,0.33,"bottom and pore
+water","McCorkle and Emerson
+(1988)",Other,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+"North
+Atlantic",K-104-10-3,42,-65,270,1,NA,NA,3.62,0.19,"bottom and pore
+water","McCorkle and Emerson
+(1988)",Other,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,K-104-10-4,42,-65,267,1,NA,NA,3.67,0.13,bottom and pore water,McCorkle and Emerson (1988),BPW,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,Site B,57.4,-15.7,233,7,NA,NA,2.25,0.07,bottom and pore water,"Papadimitriou et al. (2004); assumed 13C 1‰ bottom water from nearby GLODAP
+data ~ 1000 m water depth. 0.2‰ uncertainty added",BPW,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+Eastern Pacific,TT-163-10,24.5,-114,127,5,NA,NA,1.36,0.03,bottom and pore water,McCorkle and Emerson (1988),BPW,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+Eastern Pacific,"MANOP
+Site M BC- 20",9,-104,114,4,NA,NA,1.33,0,bottom and pore water,McCorkle and Emerson (1988),BPW,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,Station A,44.2,-2.3,188,1,NA,"bottom water and
+G. affinis (RB stained)",2.03,0,"bottom water and
+Globobulimina (spp.)",Fontanier et al. (2006),BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,Station H,44.5,-2.6,256,0,NA,"bottom water and
+G. affinis (RB stained)",3.26,0,"bottom water and
+Globobulimina (spp.)",Fontanier et al. (2006),BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,K-104-10-1 (2),41.5,-64,272,4,NA,"bottom water and stained)
+G. affinis (RB",3.91,0,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,K-104-10-2 (1),42,-64.7,270,3,NA,"bottom water and
+G. affinis (RB stained)",3.1,0.07,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,K-104-10-3 (1),42,-65,270,1,NA,"bottom water and
+G. affinis (RB stained)",2.88,0.2,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,K-104-10-3 (2),42,-65,270,1,NA,"bottom water and
+G. affinis (RB stained)",2.96,0.07,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,K-104-10-4 (1),42,-65,267,1,NA,"bottom water and
+G. affinis (RB stained)",2.47,0,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,"CH14 1(1)
+and (2)",38.233,-71.5,269,4,NA,"bottom water and
+G. affinis (RB stained)",3.56,0,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,Gyre 2-3,38.6,-72.9,263,1,NA,"bottom water and
+G. affinis (RB stained)",2.76,0.11,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,86/2:7-4:22,38.22,-71.5,270,2,NA,"bottom water and
+G. affinis (RB stained)",3.39,0.02,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,86-G-14,14.67,-17.83,185,2,NA,"bottom water and
+G. affinis (RB stained)",1.99,0,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,CH90-BC5,35.65,-74.84,264,5,NA,"bottom water and
+G. affinis (RB stained)",2.28,0,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1997,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+South Indian,AUSCAN MC05,-36.73,136.55,179,2,NA,"bottom water and
+G. pacifica (RB stained)",1.98,0.29,"bottom water and
+Globobulimina (spp.)",Basak et al. (2009),BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+South Indian,AUSCAN MC04,-36.81,136.82,167,3,NA,"bottom water and
+G. pacifica (RB stained)",1.6,0,"bottom water and
+Globobulimina (spp.)",Basak et al. (2009),BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Pacific,JD88TC37,53.617,-163.21,62,3,NA,"bottom water and
+G. pacifica (RB stained)",0.82,0.16,"bottom water and
+Globobulimina (spp.)",Basak et al. (2009),BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Pacific,SCB-BC-3,32.5,-118,56,0,NA,"bottom water and
+G. affinis (live)",0.84,0.3,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1990,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Pacific,PSII-BC227,35.47,-122.35,137,6,NA,"bottom water and
+G. pacifica (live)",1.44,0.12,"bottom water and
+Globobulimina (spp.)",McCorkle et al. 1997,BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only
+North Atlantic,Station I,44.8,-2.5,246,4,NA,"bottom water and
+G. affinis (RB stained)",2.66,0.04,"bottom water and
+Globobulimina (spp.)",Fontanier et al. (2008),BWG,FALSE,FALSE,FALSE,FALSE,FALSE,not_foram_only

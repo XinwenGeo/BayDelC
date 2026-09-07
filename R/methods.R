@@ -1,7 +1,8 @@
 #' @export
 print.forward_psm_result <- function(x, ...) {
   cat("BayDelC forward prediction\n")
-  cat(sprintf("Model: %s (%s calibration)\n", x$metadata$algorithm, x$metadata$calibration))
+  cat(sprintf("Model: %s/%s/%s (%s calibration)\n", x$metadata$model_set,
+              x$metadata$algorithm, x$metadata$variant, x$metadata$calibration))
   print(x$summary, row.names = FALSE)
   invisible(x)
 }
@@ -9,8 +10,9 @@ print.forward_psm_result <- function(x, ...) {
 #' @export
 print.inverse_psm_result <- function(x, ...) {
   cat("BayDelC inverse reconstruction\n")
-  cat(sprintf("Model: %s (%s calibration); inversion: %s\n",
-              x$metadata$algorithm, x$metadata$calibration, x$metadata$inversion))
+  cat(sprintf("Model: %s/%s/%s (%s calibration); inversion: %s\n",
+              x$metadata$model_set, x$metadata$algorithm, x$metadata$variant,
+              x$metadata$calibration, x$metadata$inversion))
   print(x$summary, row.names = FALSE)
   invisible(x)
 }

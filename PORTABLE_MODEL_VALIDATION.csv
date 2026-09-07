@@ -1,7 +1,17 @@
 "model","comparison","max_abs_difference","full_repeat_difference","tolerance","passed"
-"BLR_Sub","posterior parameters",0,0,0,TRUE
-"BLR_All","posterior parameters",0,0,0,TRUE
-"GPR_Sub","stored grid points",0.00125536069826326,0.00063804136381318,0.005,TRUE
-"GPR_Sub","half-step interpolation",0.000411266151259193,0.000278542866259945,0.005,TRUE
-"GPR_All","stored grid points",0.0017758979854885,0.00299387542391871,0.00598775084783743,TRUE
-"GPR_All","half-step interpolation",0.000354250126733291,0.000199981604248389,0.005,TRUE
+"BLR_Sub_main","posterior parameters",0,0,0,TRUE
+"BLR_All_main","posterior parameters",0,0,0,TRUE
+"BLR_Sub_StudentT","posterior parameters",0,0,0,TRUE
+"BLR_All_StudentT","posterior parameters",0,0,0,TRUE
+"GPR_Sub_main","stored-grid posterior summaries",0.00133552135135306,0.00063804136381318,0.005,TRUE
+"GPR_Sub_main","half-step posterior summaries",0.000316630906215698,0.000278542866259945,0.005,TRUE
+"GPR_All_main","stored-grid posterior summaries",0.000925418763360053,0.00299387542391871,0.00598775084783743,TRUE
+"GPR_All_main","half-step posterior summaries",0.000341154416080958,0.000199981604248389,0.005,TRUE
+"GPR_Sub_shrinkage","stored-grid posterior summaries",0.00178117441394265,0.00181787690850888,0.005,TRUE
+"GPR_Sub_shrinkage","half-step posterior summaries",0.000409093044273501,0.000472652721702604,0.005,TRUE
+"GPR_All_shrinkage","stored-grid posterior summaries",0.000421646542301257,0.000630492478307154,0.005,TRUE
+"GPR_All_shrinkage","half-step posterior summaries",0.00044936109802185,0.000259158906862123,0.005,TRUE
+"GPR_Sub_latent","stored grid points",0,0,1e-10,TRUE
+"GPR_Sub_latent","half-step interpolation",0.000530946980870084,0,0.005,TRUE
+"GPR_Sub_xjitter","diagnostic curves",0,0,0,TRUE
+"GPR_All_xjitter","diagnostic curves",0,0,0,TRUE

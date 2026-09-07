@@ -10,7 +10,8 @@ inverse_psm(
   error_method = c("auto", "provided_total", "h15_proxy_default",
     "lu_site", "components", "draws"),
   algorithm = c("BLR", "GPR"),
-  calibration = c("Sub", "All", "custom"), model = NULL,
+  calibration = c("Sub", "All", "custom"),
+  model_set = c("main", "sensitivity"), variant = NULL, model = NULL,
   inversion = c("auto", "strict", "grid"),
   prior = c("none", "uniform_physical", "normal", "draws", "density", "custom"),
   prior_args = NULL, o2_bounds = c(0, 300), o2_step = 1, o2_grid = NULL,
@@ -32,6 +33,8 @@ inverse_psm(
 \item{error_method}{Observation-error representation.}
 \item{algorithm}{Model family: \code{"BLR"} or \code{"GPR"}.}
 \item{calibration}{Calibration dataset or \code{"custom"}.}
+\item{model_set}{Primary \code{"main"} or alternative \code{"sensitivity"} models.}
+\item{variant}{Optional model variant; see \code{baydelc_models()}.}
 \item{model}{Optional custom model list or RDS path.}
 \item{inversion}{Automatic, analytic BLR, or grid inversion.}
 \item{prior}{Prior family for grid inversion.}

@@ -14,13 +14,12 @@ Authors@R: c(
   )
 Description: Forward and inverse Bayesian proxy system models for reconstructing
     bottom-water oxygen from benthic foraminiferal carbon-isotope offsets.
-    Calibrated Bayesian linear regression and Gaussian-process models are
+    Primary and sensitivity Bayesian linear regression and Gaussian-process models are
     distributed as lightweight posterior prediction assets, so ordinary use
     does not require refitting or a Stan installation. Functions propagate
     calibration, observation, and optional prior uncertainty.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: false
 Depends: R (>= 4.2.0)
 Imports:
     graphics,
@@ -28,6 +27,8 @@ Imports:
     utils
 Suggests:
     brms,
+    ggplot2,
+    patchwork,
     posterior,
     rstan
 URL: https://github.com/clairezhang1mol/BayDelC

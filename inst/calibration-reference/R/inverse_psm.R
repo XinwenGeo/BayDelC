@@ -1,28 +1,11 @@
 # BayDelC v0.3 unified inverse interface -----------------------------------
-# The helper functions in forward_psm.R are loaded first through DESCRIPTION's
-# Collate field.  Keeping package files free of source() calls makes BayDelC
-# work consistently from source, binary, and installed packages.
+# Additive file: no existing v0.3 source file or trained RDS is modified.
 
-#' Describe uncertainty components for a Delta-delta-13-C observation
-#'
-#' This helper combines epifaunal and infaunal analytical or sampling
-#' uncertainties, their correlation, and optional pairing or other terms. All
-#' values are interpreted as one-standard-deviation errors unless `scale =
-#' "se"`; the current implementation treats supplied standard errors as the
-#' standard deviations of the corresponding observation-level estimates.
-#'
-#' @param epi_total_sd,infa_total_sd Total standard deviations for the
-#'   epifaunal and infaunal measurements. Do not combine these with their
-#'   corresponding component arguments.
-#' @param epi_measurement_sd,epi_sample_sd Epifaunal measurement and sampling
-#'   standard deviations.
-#' @param infa_measurement_sd,infa_sample_sd Infaunal measurement and sampling
-#'   standard deviations.
-#' @param pairing_sd,other_sd Additional independent standard-deviation terms.
-#' @param rho_epi_infa Correlation between epifaunal and infaunal errors.
-#' @param scale Input scale, currently `"sd"` or `"se"`.
-#' @return An object suitable for `inverse_psm(error_components = ...)`.
-#' @export
+if (!exists(".psm_resolve_model", mode = "function")) {
+  if (!file.exists("R/forward_psm.R")) stop("Source `R/forward_psm.R` before `R/inverse_psm.R`.", call. = FALSE)
+  source("R/forward_psm.R")
+}
+
 psm_error_components <- function(
     epi_total_sd = NULL,
     infa_total_sd = NULL,
@@ -307,61 +290,6 @@ psm_error_components <- function(
        probabilities = probabilities, posterior_weights = post_w, effective_sample_size = 1 / sum(post_w^2))
 }
 
-#' Reconstruct bottom-water oxygen from Delta-delta-13-C
-#'
-#' `inverse_psm()` propagates calibration and observation uncertainty to
-#' estimate bottom-water oxygen (BWO). BLR can use direct analytic inversion;
-#' BLR and GPR can both use a grid-based Bayesian inversion with an optional
-#' prior.
-#'
-#' @param data Optional data frame containing Delta-delta-13-C observations and
-#'   optional uncertainty and site columns.
-#' @param dd13c Numeric Delta-delta-13-C observations in per mille.
-#' @param dd13c_sd Total one-standard-deviation uncertainty for `dd13c`.
-#' @param glob_site_sd Site-specific infaunal standard deviations used by the
-#'   Lu-style error representation.
-#' @param error_components Output of `psm_error_components()` or a compatible
-#'   list/data frame.
-#' @param dd13c_draws Optional matrix of observation draws, with observations
-#'   in rows and realizations in columns.
-#' @param dd13c_draw_weights Optional weights for columns of `dd13c_draws`.
-#' @param dd13c_col,dd13c_sd_col,glob_site_sd_col,site_col Column names used
-#'   when `data` is supplied.
-#' @param error_method Observation-error representation. `"auto"` selects from
-#'   the supplied inputs.
-#' @param algorithm Calibration family: `"BLR"` or `"GPR"`.
-#' @param calibration Calibration dataset: restricted-taxon `"Sub"`,
-#'   mixed-taxon `"All"`, or `"custom"`.
-#' @param model_set Select the primary `"main"` collection or the alternative
-#'   `"sensitivity"` calibrations.
-#' @param variant Model variant. Defaults depend on `algorithm` and `model_set`;
-#'   use [baydelc_models()] to list valid combinations.
-#' @param model Optional custom model list or path to an RDS model bundle.
-#' @param inversion `"strict"` for analytic BLR inversion, `"grid"` for
-#'   Bayesian grid inversion, or `"auto"`.
-#' @param prior Prior on BWO. See the package vignette for the accepted
-#'   `prior_args` structures.
-#' @param prior_args Named list configuring the selected prior.
-#' @param o2_bounds,o2_step,o2_grid Bounds, spacing, or an explicit numerical
-#'   grid for grid-based inversion, in micromoles per kilogram.
-#' @param dd13c_convention Sign convention. This version supports only
-#'   `"epifaunal_minus_infaunal"`.
-#' @param include_model_residual Include residual calibration variability.
-#' @param n_draw Number of output Monte Carlo draws.
-#' @param integration_draws Number of posterior model draws used for numerical
-#'   likelihood integration.
-#' @param seed Random seed.
-#' @param return_draws,return_density Return posterior draws or grid density.
-#' @param validate Validation policy: `"strict"`, `"warn"`, or `"none"`.
-#' @return An object of class `inverse_psm_result` containing `summary`, optional
-#'   draws/densities, diagnostics, and model metadata.
-#' @export
-#' @examples
-#' inverse_psm(dd13c = c(1.10, 1.65), dd13c_sd = 0.08,
-#'             algorithm = "BLR", n_draw = 500)
-#' inverse_psm(dd13c = 1.50, dd13c_sd = 0.08, algorithm = "GPR",
-#'             inversion = "grid", prior = "uniform_physical",
-#'             integration_draws = 100)
 inverse_psm <- function(
     data = NULL,
     dd13c = NULL,
@@ -377,8 +305,6 @@ inverse_psm <- function(
     error_method = c("auto", "provided_total", "h15_proxy_default", "lu_site", "components", "draws"),
     algorithm = c("BLR", "GPR"),
     calibration = c("Sub", "All", "custom"),
-    model_set = c("main", "sensitivity"),
-    variant = NULL,
     model = NULL,
     inversion = c("auto", "strict", "grid"),
     prior = c("none", "uniform_physical", "normal", "draws", "density", "custom"),
@@ -398,7 +324,6 @@ inverse_psm <- function(
   error_method <- match.arg(error_method)
   algorithm <- match.arg(algorithm)
   calibration <- match.arg(calibration)
-  model_set <- match.arg(model_set)
   inversion <- match.arg(inversion)
   prior <- match.arg(prior)
   validate <- match.arg(validate)
@@ -434,7 +359,7 @@ inverse_psm <- function(
   sites <- .psm_site_labels(data, site_col, n_obs)
   obs <- .psm_resolve_observation_error(n_obs, dd13c_sd, glob_site_sd, error_components, dd13c_draws, error_method, validate, dd13c_draw_weights)
 
-  resolved <- .psm_resolve_model(model, algorithm, calibration, model_set, variant)
+  resolved <- .psm_resolve_model(model, algorithm, calibration)
   bundle <- resolved$bundle
   algorithm_used <- resolved$algorithm
   calib_range <- .psm_calibration_range(bundle)
@@ -545,8 +470,6 @@ inverse_psm <- function(
   summary$dd13c_sd <- obs$sd
   summary$algorithm <- algorithm_used
   summary$calibration <- calibration
-  summary$model_set <- resolved$model_set
-  summary$variant <- resolved$variant
   summary$inversion <- inversion
   summary$prior_requested <- prior_requested
   summary$prior_effective <- prior_effective
@@ -569,8 +492,6 @@ inverse_psm <- function(
       model_type = bundle$model_type %||% algorithm_used,
       algorithm = algorithm_used,
       calibration = calibration,
-      model_set = resolved$model_set,
-      variant = resolved$variant,
       calibration_range = calib_range,
       inversion = inversion,
       prior_requested = prior_requested,

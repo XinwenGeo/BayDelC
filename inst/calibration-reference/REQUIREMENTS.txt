@@ -1,0 +1,15 @@
+R >= 4.2.0
+dplyr
+readr
+readxl
+tibble
+purrr
+tidyr
+brms
+rstan
+loo
+posterior
+sessioninfo
+jsonlite
+
+Original model bundles record the precise package versions used for fitting.

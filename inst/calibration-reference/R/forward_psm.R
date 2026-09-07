@@ -1,6 +1,8 @@
 # BayDelC v0.3 unified forward interface -----------------------------------
-# The user-facing package loads lightweight calibrated assets; no model is
-# retrained by this file.
+# Additive file: source after scripts/00_setup.R and the original v0.3 files.
+# This file does not modify or retrain any existing model bundle.
+
+`%||%` <- function(a, b) if (!is.null(a)) a else b
 
 .psm_issue <- function(message, validate = c("strict", "warn", "none"), fatal = TRUE) {
   validate <- match.arg(validate)
@@ -42,8 +44,7 @@
 
 .psm_site_labels <- function(data, site_col, n) {
   if (!is.null(data)) {
-    requested <- if (!is.null(site_col) && site_col %in% names(data)) site_col else NULL
-    sc <- .psm_detect_column(data, requested, c("Site", "site", "Core", "core", "Core name"), FALSE, "site column")
+    sc <- .psm_detect_column(data, site_col, c("Site", "site", "Core", "core", "Core name"), FALSE, "site column")
     if (!is.null(sc)) return(as.character(data[[sc]]))
   }
   as.character(seq_len(n))
@@ -93,27 +94,46 @@
   mean + sd * stats::qnorm(u)
 }
 
-.psm_model_registry <- function(algorithm, calibration, model_set = "main", variant = NULL) {
-  if (calibration == "custom") return(NULL)
-  .baydelc_model_path(algorithm, calibration, model_set, variant, must_exist = FALSE)
+.psm_model_registry <- function(algorithm, calibration) {
+  algorithm <- toupper(algorithm)
+  key <- paste(algorithm, calibration, sep = "_")
+
+  # Prefer the project registry when available. This keeps model paths in one
+  # auditable place without making the public interface depend on it.
+  if (!exists("baydelc_model_registry", mode = "function") && file.exists("config/model_registry.R")) {
+    try(source("config/model_registry.R"), silent = TRUE)
+  }
+  if (exists("baydelc_model_registry", mode = "function")) {
+    reg <- baydelc_model_registry(root = ".")
+    hit <- reg[
+      toupper(reg$algorithm) == algorithm &
+        reg$calibration == calibration &
+        reg$role == "main" &
+        reg$active,
+      , drop = FALSE
+    ]
+    if (nrow(hit) >= 1L) return(hit$path[[1L]])
+  }
+
+  # Fallback preserves standalone compatibility with the original v0.3 tree.
+  switch(key,
+    BLR_Sub = "inst/models/main/Sub_Linear_EIV_Gaussian_v0.3.rds",
+    BLR_All = "inst/models/main/All_Linear_EIV_Gaussian_v0.3.rds",
+    GPR_Sub = "inst/models/main/Sub_GPR_Baseline_v0.3.rds",
+    GPR_All = "inst/models/main/All_GPR_Baseline_v0.3.rds",
+    NULL
+  )
 }
 
-.psm_resolve_model <- function(model = NULL, algorithm = "BLR", calibration = "Sub",
-                               model_set = "main", variant = NULL) {
+.psm_resolve_model <- function(model = NULL, algorithm = "BLR", calibration = "Sub") {
   algorithm <- match.arg(toupper(algorithm), c("BLR", "GPR"))
   calibration <- match.arg(calibration, c("Sub", "All", "custom"))
-  model_set <- match.arg(tolower(model_set), c("main", "sensitivity"))
   if (is.null(model)) {
     if (calibration == "custom") stop("`calibration = 'custom'` requires `model`.", call. = FALSE)
-    row <- .baydelc_resolve_registry_row(algorithm, calibration, model_set, variant)
-    if (!isTRUE(row$prediction_ready[[1L]])) {
-      stop(sprintf("Model `%s` is a diagnostic curve ensemble, not a prediction-ready calibration.", row$model_id[[1L]]), call. = FALSE)
-    }
-    path <- .psm_model_registry(algorithm, calibration, model_set, variant)
+    path <- .psm_model_registry(algorithm, calibration)
     if (is.null(path) || !file.exists(path)) stop(sprintf("Model file not found: %s", path %||% "<unknown>"), call. = FALSE)
     model <- readRDS(path)
     attr(model, "psm_model_path") <- path
-    variant <- row$variant[[1L]]
   } else if (is.character(model) && length(model) == 1L) {
     if (!file.exists(model)) stop(sprintf("Model file not found: %s", model), call. = FALSE)
     path <- model
@@ -126,9 +146,7 @@
   if (algorithm != inferred && calibration != "custom") {
     stop(sprintf("Requested algorithm `%s`, but the supplied model appears to be `%s`.", algorithm, inferred), call. = FALSE)
   }
-  list(bundle = model, algorithm = inferred, calibration = calibration,
-       model_set = if (calibration == "custom") "custom" else model_set,
-       variant = variant %||% if (calibration == "custom") "custom" else "baseline")
+  list(bundle = model, algorithm = inferred, calibration = calibration)
 }
 
 .psm_calibration_range <- function(model) {
@@ -210,44 +228,9 @@
 }
 
 .psm_gpr_available_draws <- function(model) {
-  if (!is.null(model$portable_mean_draws)) return(nrow(as.matrix(model$portable_mean_draws)))
   if (!is.null(model$posterior_draws)) return(nrow(as.data.frame(model$posterior_draws)))
   if (!is.null(model$fit_object) && requireNamespace("posterior", quietly = TRUE)) return(posterior::ndraws(model$fit_object))
   stop("Could not determine the number of GPR posterior draws.", call. = FALSE)
-}
-
-.psm_is_portable_gpr <- function(model) {
-  is.numeric(model$portable_bwo_grid) &&
-    length(model$portable_bwo_grid) >= 2L &&
-    !is.null(model$portable_mean_draws)
-}
-
-.psm_portable_gpr_mean <- function(model, x, draw_ids) {
-  grid <- as.numeric(model$portable_bwo_grid)
-  curves <- as.matrix(model$portable_mean_draws)
-  if (ncol(curves) != length(grid)) {
-    stop("Portable GPR grid and posterior curves have incompatible dimensions.", call. = FALSE)
-  }
-  if (any(!is.finite(x)) || any(x < min(grid) | x > max(grid))) {
-    stop(
-      sprintf(
-        "Portable GPR predictions support BWO from %g to %g umol kg^-1.",
-        min(grid), max(grid)
-      ),
-      call. = FALSE
-    )
-  }
-  if (any(draw_ids < 1L | draw_ids > nrow(curves))) {
-    stop("Portable GPR draw index is out of range.", call. = FALSE)
-  }
-  out <- matrix(NA_real_, nrow = length(draw_ids), ncol = length(x))
-  for (k in seq_along(draw_ids)) {
-    out[k, ] <- stats::approx(
-      grid, curves[draw_ids[k], ], xout = x,
-      method = "linear", ties = "ordered", rule = 1
-    )$y
-  }
-  out
 }
 
 .psm_gpr_newdata <- function(model, x) {
@@ -325,7 +308,6 @@
 }
 
 .psm_gpr_mean_grid <- function(model, x, draw_ids) {
-  if (.psm_is_portable_gpr(model)) return(.psm_portable_gpr_mean(model, x, draw_ids))
   if (.psm_is_latent_gpr(model)) return(.psm_latent_mean_grid(model, x, draw_ids))
   if (!is.null(model$predict_mean_draws) && is.function(model$predict_mean_draws)) {
     ans <- model$predict_mean_draws(model = model, x = x, draw_ids = draw_ids)
@@ -339,35 +321,6 @@
 }
 
 .psm_gpr_diagonal_predict <- function(model, x_draws, draw_ids, predictive = TRUE, chunk_size = 200L) {
-  if (.psm_is_portable_gpr(model)) {
-    if (length(draw_ids) != ncol(x_draws)) {
-      stop("Portable GPR requires one posterior draw index per input draw.", call. = FALSE)
-    }
-    grid <- as.numeric(model$portable_bwo_grid)
-    curves <- as.matrix(model$portable_mean_draws)
-    if (any(x_draws < min(grid) | x_draws > max(grid))) {
-      stop(
-        sprintf(
-          "Portable GPR predictions support BWO from %g to %g umol kg^-1.",
-          min(grid), max(grid)
-        ),
-        call. = FALSE
-      )
-    }
-    out <- matrix(NA_real_, nrow = nrow(x_draws), ncol = ncol(x_draws))
-    for (k in seq_len(ncol(x_draws))) {
-      out[, k] <- stats::approx(
-        grid, curves[draw_ids[k], ], xout = x_draws[, k],
-        method = "linear", ties = "ordered", rule = 1
-      )$y
-    }
-    if (predictive) {
-      sig <- .psm_gpr_sigma_draws(model, draw_ids)
-      out <- out + matrix(stats::rnorm(length(out)), nrow = nrow(out)) *
-        rep(sig, each = nrow(out))
-    }
-    return(out)
-  }
   if (.psm_is_latent_gpr(model)) return(.psm_latent_diagonal_predict(model, x_draws, draw_ids, predictive))
   if (!is.null(model$predict_draws) && is.function(model$predict_draws)) {
     ans <- model$predict_draws(model = model, bwo_draws = x_draws, draw_ids = draw_ids, predictive = predictive)
@@ -412,48 +365,6 @@
   )
 }
 
-#' Propagate bottom-water oxygen through a BayDelC calibration
-#'
-#' `forward_psm()` estimates the distribution of benthic foraminiferal
-#' Delta-delta-13-C expected from one or more bottom-water oxygen (BWO) values.
-#' It propagates calibration uncertainty, optional BWO input uncertainty, and
-#' optionally residual model variability.
-#'
-#' @param data Optional data frame containing BWO values and, optionally,
-#'   uncertainty and site columns.
-#' @param bwo Numeric BWO values in micromoles per kilogram.
-#' @param bwo_sd Optional one-standard-deviation uncertainty for `bwo`.
-#' @param bwo_draws Optional matrix of BWO draws with observations in rows.
-#' @param bwo_draw_weights Optional weights for the columns of `bwo_draws`.
-#' @param bwo_col,bwo_sd_col,site_col Column names used when `data` is supplied.
-#' @param input_error_method Input uncertainty representation. `"auto"`
-#'   selects from the supplied arguments.
-#' @param input_distribution Optional custom random generator for BWO inputs.
-#' @param input_bounds Two-element physical bounds for sampled BWO inputs.
-#' @param algorithm Calibration family: `"BLR"` or `"GPR"`.
-#' @param calibration Calibration dataset: restricted-taxon `"Sub"`,
-#'   mixed-taxon `"All"`, or `"custom"`.
-#' @param model_set Select the primary `"main"` collection or the alternative
-#'   `"sensitivity"` calibrations.
-#' @param variant Model variant. Defaults depend on `algorithm` and `model_set`;
-#'   use [baydelc_models()] to list valid combinations.
-#' @param model Optional custom model list or path to an RDS model bundle.
-#' @param prediction `"predictive"` includes residual variability;
-#'   `"latent"` returns the latent calibration relationship.
-#' @param include_model_residual Logical override controlling residual
-#'   variability.
-#' @param n_draw Number of Monte Carlo draws.
-#' @param seed Random seed.
-#' @param return_draws Return the observation-by-draw matrix when `TRUE`.
-#' @param validate Validation policy: `"strict"`, `"warn"`, or `"none"`.
-#' @param gpr_chunk_size Chunk size used only with a custom full `brms` model.
-#'
-#' @return An object of class `forward_psm_result` containing `summary`,
-#'   optional `draws`, diagnostics, and model metadata.
-#' @export
-#' @examples
-#' forward_psm(bwo = c(80, 150, 220), algorithm = "BLR", n_draw = 500)
-#' forward_psm(bwo = 120, bwo_sd = 15, algorithm = "GPR", n_draw = 500)
 forward_psm <- function(
     data = NULL,
     bwo = NULL,
@@ -468,8 +379,6 @@ forward_psm <- function(
     input_bounds = c(0, Inf),
     algorithm = c("BLR", "GPR"),
     calibration = c("Sub", "All", "custom"),
-    model_set = c("main", "sensitivity"),
-    variant = NULL,
     model = NULL,
     prediction = c("predictive", "latent"),
     include_model_residual = TRUE,
@@ -482,7 +391,6 @@ forward_psm <- function(
   input_error_method <- match.arg(input_error_method)
   algorithm <- match.arg(algorithm)
   calibration <- match.arg(calibration)
-  model_set <- match.arg(model_set)
   prediction <- match.arg(prediction)
   validate <- match.arg(validate)
   input_bounds <- .psm_validate_bounds(input_bounds, "input_bounds")
@@ -555,7 +463,7 @@ forward_psm <- function(
     }
   )
 
-  resolved <- .psm_resolve_model(model, algorithm, calibration, model_set, variant)
+  resolved <- .psm_resolve_model(model, algorithm, calibration)
   bundle <- resolved$bundle
   algorithm_used <- resolved$algorithm
   include_residual_effective <- isTRUE(include_model_residual) && prediction == "predictive"
@@ -589,8 +497,6 @@ forward_psm <- function(
   summary$P_BWO_outside_calibration <- rowMeans(x_draws < calib_range[1] | x_draws > calib_range[2])
   summary$algorithm <- algorithm_used
   summary$calibration <- calibration
-  summary$model_set <- resolved$model_set
-  summary$variant <- resolved$variant
   summary$prediction <- prediction
   summary$input_error_method <- input_error_method
 
@@ -608,8 +514,6 @@ forward_psm <- function(
       model_path = attr(bundle, "psm_model_path"),
       algorithm = algorithm_used,
       calibration = calibration,
-      model_set = resolved$model_set,
-      variant = resolved$variant,
       calibration_range = calib_range,
       prediction_requested = prediction,
       include_model_residual = include_residual_effective,

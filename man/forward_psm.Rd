@@ -9,7 +9,8 @@ forward_psm(
   input_error_method = c("auto", "fixed", "normal", "draws", "custom"),
   input_distribution = NULL, input_bounds = c(0, Inf),
   algorithm = c("BLR", "GPR"),
-  calibration = c("Sub", "All", "custom"), model = NULL,
+  calibration = c("Sub", "All", "custom"),
+  model_set = c("main", "sensitivity"), variant = NULL, model = NULL,
   prediction = c("predictive", "latent"), include_model_residual = TRUE,
   n_draw = 2000, seed = 123, return_draws = FALSE,
   validate = c("strict", "warn", "none"), gpr_chunk_size = 200L
@@ -27,6 +28,8 @@ forward_psm(
 \item{input_bounds}{Two-element bounds for sampled BWO.}
 \item{algorithm}{Model family: \code{"BLR"} or \code{"GPR"}.}
 \item{calibration}{Calibration dataset or \code{"custom"}.}
+\item{model_set}{Primary \code{"main"} or alternative \code{"sensitivity"} models.}
+\item{variant}{Optional model variant; see \code{baydelc_models()}.}
 \item{model}{Optional custom model list or RDS path.}
 \item{prediction}{Predictive or latent-mean output.}
 \item{include_model_residual}{Whether residual model variability is included.}

@@ -89,7 +89,15 @@ gpr <- inverse_psm(
 
 ## Choosing a model
 
-BayDelC contains four calibrated models:
+BayDelC contains four primary models and seven sensitivity assets. List all
+choices with:
+
+```r
+baydelc_models("all")
+baydelc_models("sensitivity", prediction_only = TRUE)
+```
+
+The primary models are:
 
 | Algorithm | `Sub` calibration | `All` calibration |
 |---|---|---|
@@ -108,6 +116,40 @@ Inspect exact model identity and calibration bounds with:
 ```r
 baydelc_model_info("BLR", "Sub")
 ```
+
+Select a sensitivity model with `model_set` and `variant`:
+
+```r
+# Gaussian main BLR (the default)
+main <- inverse_psm(
+  dd13c = 1.5, dd13c_sd = 0.08,
+  algorithm = "BLR", calibration = "Sub", model_set = "main"
+)
+
+# Student-t BLR sensitivity calibration
+student_t <- inverse_psm(
+  dd13c = 1.5, dd13c_sd = 0.08,
+  algorithm = "BLR", calibration = "Sub",
+  model_set = "sensitivity", variant = "student_t"
+)
+
+# GPR sensitivity calibrations
+gpr_shrinkage <- forward_psm(
+  bwo = c(80, 150, 220), algorithm = "GPR", calibration = "Sub",
+  model_set = "sensitivity", variant = "shrinkage"
+)
+gpr_latent <- forward_psm(
+  bwo = c(80, 150, 220), algorithm = "GPR", calibration = "Sub",
+  model_set = "sensitivity", variant = "latent_input"
+)
+```
+
+If `variant` is omitted, sensitivity BLR defaults to `student_t` and
+sensitivity GPR defaults to `shrinkage`. The `x_jitter` entries preserve the
+article's 50-member diagnostic curve ensembles. Because the archived X-jitter
+objects do not contain posterior fits, they are intentionally marked
+`prediction_ready = FALSE`; inspect them with `baydelc_load_model()` rather
+than passing them to the forward or inverse PSM.
 
 ## Units and sign convention
 
@@ -154,13 +196,53 @@ joint realizations in columns.
 The bundled BLR assets retain posterior parameter draws. The bundled GPR assets
 retain posterior mean functions evaluated on a dense BWO grid plus matched
 residual-scale draws. This preserves posterior predictive use while removing
-platform-specific compiled Stan objects. The complete fitting workflow and raw
-chains belong in the associated reproducibility archive, not in this user-facing
-package.
+platform-specific compiled Stan objects. The package also includes calibration
+source code, Stan programs, the small calibration workbook, and processed
+tables for transparency. Full fitted objects and raw chains remain in the
+associated article reproducibility archive.
 
 Use `set.seed()` or the functions' `seed` argument for repeatable Monte Carlo
 results. See `system.file("examples", package = "BayDelC")` for complete scripts
 and `citation("BayDelC")` for the current citation record.
+
+## Reproducing article figures as package examples
+
+Two package-native examples reproduce the structure and scientific content of
+article Figures 2 and 3 using only the distributed compact models:
+
+```r
+example_dir <- system.file("examples", "paper", package = "BayDelC")
+source(file.path(example_dir, "Figure02_calibration_curves.R"))
+source(file.path(example_dir, "Figure03_BLR_prediction.R"))
+```
+
+They write PDF and PNG files to `BayDelC_paper_examples/`, or to the directory
+set in the `BAYDELC_EXAMPLE_OUTPUT` environment variable. They require the
+optional packages `ggplot2` and `patchwork`. These are package-native
+reproductions and may differ by small Monte Carlo or rendering details from the
+submission files. The paper repository remains the authority for pixel-exact
+publication output.
+
+The complete main-versus-sensitivity usage example is available at:
+
+```r
+source(system.file("examples", "03_main_and_sensitivity.R", package = "BayDelC"))
+```
+
+## Calibration reference scripts
+
+The original v0.3 calibration workflow is installed for expert inspection:
+
+```r
+calibration_reference <- system.file("calibration-reference", package = "BayDelC")
+file.show(file.path(calibration_reference, "README.md"))
+```
+
+It includes data preparation, main and sensitivity fitting scripts, Stan model
+files, the 28 KB source workbook, processed calibration tables, and the model
+registry. Nothing in this directory runs when BayDelC is installed or loaded.
+Recalibration is computationally expensive and creates a new model version; copy
+the directory into a separate writable project and read its README before use.
 
 ## Scope
 
