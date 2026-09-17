@@ -221,7 +221,7 @@ file.show(file.path(calibration_reference, "README.md"))
 ```
 
 It includes data preparation, main and sensitivity fitting scripts, Stan model
-files, the 28 KB source workbook, processed calibration tables, and the model
+files, the source workbook, processed calibration tables, and the model
 registry. Nothing in this directory runs when BayDelC is installed or loaded.
 Recalibration is computationally expensive and creates a new model version; copy
 the directory into a separate writable project and read its README before use.
