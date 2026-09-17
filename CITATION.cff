@@ -1,11 +1,24 @@
 cff-version: 1.2.0
-message: "If you use BayDelC, please cite the associated article and this software."
+message: "If you use BayDelC, please cite this software release and the associated article when it becomes available."
 title: "BayDelC: Bayesian proxy system models for bottom-water oxygen"
 type: software
 version: 0.3.0
-date-released: 2026-09-05
 license: MIT
 repository-code: "https://github.com/XinwenGeo/BayDelC"
+url: "https://github.com/XinwenGeo/BayDelC"
+abstract: >-
+  BayDelC provides forward and inverse Bayesian proxy system models for
+  reconstructing bottom-water oxygen from benthic foraminiferal carbon-isotope
+  offsets. The package distributes compact posterior prediction assets for the
+  primary and sensitivity calibrations and propagates calibration, observation,
+  residual, and optional prior uncertainty without requiring model refitting.
+keywords:
+  - bottom-water oxygen
+  - benthic foraminifera
+  - carbon isotopes
+  - Bayesian calibration
+  - proxy system model
+  - paleoceanography
 authors:
   - family-names: Zhang
     given-names: Xinwen
@@ -22,22 +35,3 @@ authors:
     given-names: Jiahao
   - family-names: Li
     given-names: Mingsong
-preferred-citation:
-  type: article
-  title: "Reconstructing Past Bottom-Water Oxygen From Benthic Foraminiferal Carbon-Isotope Offsets: The BayDelC Bayesian Framework"
-  authors:
-    - family-names: Zhang
-      given-names: Xinwen
-    - family-names: Lu
-      given-names: Wanyi
-    - family-names: Hoogakker
-      given-names: Babette A. A.
-    - family-names: Yao
-      given-names: Weiqi
-    - family-names: Gu
-      given-names: Sifan
-    - family-names: Liu
-      given-names: Jiahao
-    - family-names: Li
-      given-names: Mingsong
-  notes: "Manuscript in preparation; update journal, year, volume, pages, and DOI after acceptance."

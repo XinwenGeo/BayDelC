@@ -165,31 +165,13 @@ visible. These are diagnostics, not automatic data filters. Scientific
 interpretation should consider preservation, ecological offsets, chronology,
 and whether the selected calibration is appropriate for the sample assemblage.
 
-## Observation uncertainty
+## Uncertainty and priors
 
-If a total Δδ¹³C standard deviation is available, pass it as `dd13c_sd`. If the
-epifaunal and infaunal contributions are separate, use:
-
-```r
-err <- psm_error_components(
-  epi_measurement_sd = 0.04,
-  epi_sample_sd = 0.03,
-  infa_measurement_sd = 0.04,
-  infa_sample_sd = 0.05,
-  rho_epi_infa = 0
-)
-
-inverse_psm(
-  dd13c = 1.50,
-  error_components = err,
-  error_method = "components"
-)
-```
-
-For non-Gaussian observation or prior uncertainty, supply an
-observation-by-realization matrix through `dd13c_draws`, or prior ensemble
-draws through `prior_args$draws`. Matrices always use observations in rows and
-joint realizations in columns.
+BayDelC distinguishes calibration-parameter uncertainty, observation or input
+uncertainty, and residual predictive variability. Inverse calculations can
+additionally incorporate explicit BWO priors. Supported uncertainty
+representations, calculation details, diagnostics, and reproducible examples
+are described in [Uncertainty and priors](articles/uncertainty-and-priors.md).
 
 ## Reproducibility and model assets
 
